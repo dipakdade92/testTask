@@ -4,10 +4,12 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
+  Navigate,
 } from "react-router-dom";
 import { MantineProvider } from "@mantine/core";
 import Home from "./pages/home";
 import Login from "./pages/login";
+import ProtectedRoute from "./protectedRoute";
 
 function App() {
   return (
@@ -15,7 +17,15 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Home />} />
+          {/* Protected Route: If not authenticated, redirects to login */}
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
     </MantineProvider>
