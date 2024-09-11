@@ -10,6 +10,7 @@ import { MantineProvider } from "@mantine/core";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import ProtectedRoute from "./protectedRoute";
+import AddEditCompany from "./pages/addCompany";
 
 function App() {
   return (
@@ -23,6 +24,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/add-edit"
+            element={
+              <ProtectedRoute>
+                <AddEditCompany />
               </ProtectedRoute>
             }
           />

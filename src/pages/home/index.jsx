@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Table, ScrollArea, Badge, useMantineTheme, Button } from "@mantine/core";
 import { ContactPageData } from "../../services/apis";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [companyData, setCompanyData] = useState([]);
   const theme = useMantineTheme();
+  const navigate = useNavigate();
 
   const rows = companyData?.map((company, idx) => (
     <Table.Tr key={idx}>
@@ -23,7 +25,7 @@ const Home = () => {
       </Table.Td>
       <Table.Td>
         <Button
-        //   onClick={() => handleAdd()}
+          onClick={() => navigate("/add-edit")}
           size="xs"
           variant="outline"
           color="blue"
@@ -37,7 +39,7 @@ const Home = () => {
           variant="outline"
           color="red"
         >
-          Delete
+          Edit
         </Button>
       </Table.Td>
     </Table.Tr>
