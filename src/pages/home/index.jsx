@@ -5,12 +5,16 @@ import {
   Badge,
   useMantineTheme,
   Button,
+  Pagination,
+  Box,
 } from "@mantine/core";
 import { contactPageData } from "../../services/apis";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [companyData, setCompanyData] = useState([]);
+  const [record, setRecord] = useState("");
+  const [page, setPage] = useState(0);
   const theme = useMantineTheme();
   const navigate = useNavigate();
 
@@ -22,7 +26,7 @@ const Home = () => {
       <Table.Td>{company.phone || "-"}</Table.Td>
       <Table.Td>{company.headOffice.address.cityName || "-"}</Table.Td>
       <Table.Td>{company.headOffice.address.country || "-"}</Table.Td>
-      <Table.Td>{company.headOffice.address.addressLabel || "-"}</Table.Td>
+      <Table.Td>{company.headOffice.address.addressLine || "-"}</Table.Td>
 
       <Table.Td>
         <Badge color={company.rating > 4.5 ? "green" : "yellow"}>
@@ -31,7 +35,7 @@ const Home = () => {
       </Table.Td>
       <Table.Td>
         <Button
-          onClick={() => navigate("/add-edit")}
+          onClick={() => navigate("/view-details", { state: { company } })}
           size="xs"
           variant="outline"
           color="green"
@@ -53,12 +57,19 @@ const Home = () => {
 
   useEffect(() => {
     getCompanyData();
-  }, []);
+  }, [page]);
 
   const getCompanyData = async () => {
+    let pageNumber;
+    if (page === 0) {
+      pageNumber = page;
+    } else {
+      pageNumber = page - 1;
+    }
     try {
-      const { data } = await contactPageData();
+      const { data } = await contactPageData(pageNumber);
       setCompanyData(data.data);
+      setRecord(data?.totalCount);
     } catch (error) {
       console.log("Error fetching company data:", error);
     }
@@ -95,6 +106,16 @@ const Home = () => {
         </Table.Thead>
         <Table.Tbody>{rows}</Table.Tbody>
       </Table>
+
+      <Box style={{margin: "40px", display: "flex", justifyContent: "center"}}>
+        <Pagination
+          page={page}
+          onChange={setPage}
+          total={Math.ceil(record / 20)}
+          position="center"
+          mt="md"
+        />
+      </Box>
     </ScrollArea>
   );
 };

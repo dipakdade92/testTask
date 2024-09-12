@@ -1,35 +1,19 @@
 import ApiCaller from "../util/apiCaller";
 
-export const contactPageData = () => {
+export const contactPageData = (page) => {
   return ApiCaller(
-    `/list?apiKey=HIRE840770DDB2F381CA41BA84AA6A9ABE68B0EE&onlyMyRecords=false&pageNumber=0&pageSize=20&sort=DESC&sortField=createdOn`,
+    `/list?apiKey=HIRE840770DDB2F381CA41BA84AA6A9ABE68B0EE&onlyMyRecords=false&pageNumber=${page}&pageSize=20&sort=DESC&sortField=createdOn`,
     "GET",
     {},
     "https://api.recruitly.io/api/company"
   );
 };
 
-export const addCompany = ({
-  address,
-  city,
-  name,
-  countryName,
-  email,
-  ownerName,
-  phone,
-}) => {
+export const addCompany = (payload) => {
   return ApiCaller(
-    "/v2?apiKey=HIRE840770DDB2F381CA41BA84AA6A9ABE68B0EE",
+    "?apiKey=HIRE840770DDB2F381CA41BA84AA6A9ABE68B0EE",
     "POST",
-    {
-      address,
-      city,
-      name,
-      countryName,
-      email,
-      ownerName,
-      phone,
-    },
+    payload,
     "https://api.recruitly.io/api/company"
   );
 };

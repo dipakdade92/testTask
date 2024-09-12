@@ -22,8 +22,6 @@ const AddEditCompany = () => {
 
     validate: {
       name: (value) => (value.length > 0 ? null : "Company name is required"),
-      ownerName: (value) =>
-        value.length > 0 ? null : "Owner name is required",
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
       phone: (value) => (value.length > 0 ? null : "Phone number is required"),
       city: (value) => (value.length > 0 ? null : "City is required"),
@@ -41,7 +39,7 @@ const AddEditCompany = () => {
         phone: editData.phone,
         city: editData.headOffice.address.cityName,
         countryName: editData.headOffice.address.country,
-        address: editData.headOffice.address.addressLabel,
+        address: editData.headOffice.address.addressLine,
       };
 
       form.setValues(formData);
@@ -64,21 +62,21 @@ const AddEditCompany = () => {
         // Compare current form values with initial editData and send only changed fields
         const originalValues = {
           name: editData.name,
-          ownerName: editData.ownerName,
           email: editData.email,
           phone: editData.phone,
           city: editData.headOffice.address.cityName,
           countryName: editData.headOffice.address.country,
-          address: editData.headOffice.address.addressLabel,
+          address: editData.headOffice.address.addressLine,
         };
 
         const changedFields = getChangedFields(originalValues, values);
 
         if (Object.keys(changedFields).length > 0) {
+          console.log(editData, "aaaaaaaaaaaa");
           const payload = {
             id: editData.id,
             name: changedFields.name || originalValues.name,
-            ownerName: changedFields.ownerName || originalValues.ownerName,
+            ownerName: editData.ownerName,
             email: changedFields.email || originalValues.email,
             phone: changedFields.phone || originalValues.phone,
             headOffice: {
@@ -86,7 +84,7 @@ const AddEditCompany = () => {
                 cityName: changedFields.city || originalValues.city,
                 countryCode:
                   changedFields.countryName || originalValues.countryName,
-                addressLabel: changedFields.address || originalValues.address,
+                addressLine: changedFields.address || originalValues.address,
               },
             },
           };
@@ -99,7 +97,19 @@ const AddEditCompany = () => {
         }
       } else {
         // Otherwise, call the add function
-        const data = await addCompany(values);
+        const payload = {
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          headOffice: {
+            address: {
+              cityName: values.city,
+              countryCode: values.countryName,
+              addressLine: values.address,
+            },
+          },
+        };
+        const data = await addCompany(payload);
         if (data.data) {
           navigate("/");
         }
@@ -115,7 +125,6 @@ const AddEditCompany = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "100vh",
         padding: "20px",
       }}
     >
@@ -139,13 +148,14 @@ const AddEditCompany = () => {
             mt="sm"
           />
 
-          <TextInput
-            label="Owner Name"
-            placeholder="Enter owner name"
-            {...form.getInputProps("ownerName")}
-            required
-            mt="sm"
-          />
+          {editData && (
+            <TextInput
+              label="Owner Name"
+              disabled
+              {...form.getInputProps("ownerName")}
+              mt="sm"
+            />
+          )}
 
           <TextInput
             label="Email"
