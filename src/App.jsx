@@ -1,16 +1,12 @@
 import "./App.css";
 import "@mantine/core/styles.css";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { MantineProvider } from "@mantine/core";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import ProtectedRoute from "./protectedRoute";
 import AddEditCompany from "./pages/addCompany";
+import Layout from "./components/layout";
 
 function App() {
   return (
@@ -23,7 +19,9 @@ function App() {
             path="/"
             element={
               <ProtectedRoute>
-                <Home />
+                <Layout>
+                  <Home />
+                </Layout>
               </ProtectedRoute>
             }
           />
@@ -31,7 +29,9 @@ function App() {
             path="/add-edit"
             element={
               <ProtectedRoute>
-                <AddEditCompany />
+                <Layout>
+                  <AddEditCompany />
+                </Layout>
               </ProtectedRoute>
             }
           />
