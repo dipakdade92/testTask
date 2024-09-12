@@ -7,6 +7,7 @@ import Login from "./pages/login";
 import ProtectedRoute from "./protectedRoute";
 import AddEditCompany from "./pages/addCompany";
 import Layout from "./components/layout";
+import ViewCompany from "./pages/viewCompany";
 
 function App() {
   return (
@@ -31,6 +32,16 @@ function App() {
               <ProtectedRoute>
                 <Layout>
                   <AddEditCompany />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/view-details"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <ViewCompany />
                 </Layout>
               </ProtectedRoute>
             }
