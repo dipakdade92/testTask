@@ -72,7 +72,6 @@ const AddEditCompany = () => {
         const changedFields = getChangedFields(originalValues, values);
 
         if (Object.keys(changedFields).length > 0) {
-          console.log(editData, "aaaaaaaaaaaa");
           const payload = {
             id: editData.id,
             name: changedFields.name || originalValues.name,
@@ -125,18 +124,22 @@ const AddEditCompany = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        padding: "20px",
+        padding: "40px",
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
       }}
     >
       <Paper
-        shadow="md"
+        shadow="lg"
         radius="md"
         p="lg"
         style={{
           width: "100%",
           maxWidth: 800,
           border: "1px solid #ddd",
-          padding: "20px",
+          backgroundColor: "rgba(255, 255, 255, 0.8)",
+          backdropFilter: "blur(10px)",
+          borderRadius: "16px",
         }}
       >
         <form onSubmit={form.onSubmit(handleSubmit)}>
@@ -198,7 +201,16 @@ const AddEditCompany = () => {
           />
 
           <Group position="right" mt="md">
-            <Button type="submit">Submit</Button>
+            <Button
+              type="submit"
+              variant="filled"
+              style={{
+                backgroundColor: "#00bfff",
+                color: "white",
+              }}
+            >
+              Submit
+            </Button>
           </Group>
         </form>
       </Paper>

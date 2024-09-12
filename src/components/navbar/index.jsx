@@ -20,26 +20,38 @@ const Navbar = () => {
   return (
     <Box
       style={{
-        backgroundColor: theme.colors.gray[0],
+        background: "linear-gradient(135deg, #0072ff, #00c6ff)",
         padding: theme.spacing.md,
         borderBottom: `1px solid ${theme.colors.gray[2]}`,
-        marginBottom: theme.spacing.lg,
+        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
       }}
     >
       <Container style={{ maxWidth: "100%" }}>
         <Group position="apart" style={{ justifyContent: "space-between" }}>
-          <Title order={3}>Company Management</Title>
+          <Title order={3} style={{ color: "#fff" }}>
+            Company Management
+          </Title>
           <Group>
             <Button
               variant="filled"
-              color="blue"
+              style={{
+                backgroundColor: "#00c6ff",
+                borderRadius: "12px",
+                color: "#fff",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+              }}
               onClick={() => navigate("/add-edit")}
             >
               Add Company
             </Button>
             <Button
               variant="outline"
-              color="red"
+              style={{
+                borderColor: "#ff4d4f",
+                color: "#ff4d4f",
+                borderRadius: "12px",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+              }}
               onClick={() => handleLogout()}
             >
               Logout
