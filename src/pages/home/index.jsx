@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
-import { Table, ScrollArea, Badge, useMantineTheme, Button } from "@mantine/core";
-import { ContactPageData } from "../../services/apis";
+import {
+  Table,
+  ScrollArea,
+  Badge,
+  useMantineTheme,
+  Button,
+} from "@mantine/core";
+import { contactPageData } from "../../services/apis";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -28,16 +34,16 @@ const Home = () => {
           onClick={() => navigate("/add-edit")}
           size="xs"
           variant="outline"
-          color="blue"
+          color="green"
           style={{ marginRight: "10px" }}
         >
-          Add
+          View
         </Button>
         <Button
-        //   onClick={() => handleDelete()}
+          onClick={() => navigate("/add-edit", { state: { company } })}
           size="xs"
           variant="outline"
-          color="red"
+          color="blue"
         >
           Edit
         </Button>
@@ -49,10 +55,9 @@ const Home = () => {
     getCompanyData();
   }, []);
 
-  // Fetch company data from the API
   const getCompanyData = async () => {
     try {
-      const { data } = await ContactPageData();
+      const { data } = await contactPageData();
       setCompanyData(data.data);
     } catch (error) {
       console.log("Error fetching company data:", error);
