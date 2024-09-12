@@ -7,6 +7,8 @@ Welcome to the Company Management App! This project is built with Vite and provi
 ## Features
 
 - **Login**: Access the app using static credentials.
+  Email: - test@gmail.com
+  Password - test@123
 - **Company List**: View a list of all companies.
 - **Company Details**: View details of a specific company.
 - **Add Company**: Add new companies to the list.
